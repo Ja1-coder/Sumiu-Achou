@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('phone', 20);
             $table->string('email', 50);
+            $table->text('operating_hours')->nullable();
             $table->timestamps();
         });
     }

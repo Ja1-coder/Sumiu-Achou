@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Place extends Model
 {
-    protected $fillable = ['full_address', 'phone', 'email', 'user_id'];
+    protected $fillable = ['full_address', 'phone', 'email', 'user_id', 'operating_hours'];
 
 
     /**
@@ -30,15 +30,5 @@ class Place extends Model
     public function items(): HasMany
     {
         return $this->hasMany(Item::class);
-    }
-
-    /**
-     * Gets the schedules associated with this place.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(PlaceSchedule::class);
     }
 }

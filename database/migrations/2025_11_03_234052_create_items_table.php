@@ -22,6 +22,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(false);
             $table->string('picture');
             $table->integer('enrollment')->nullable();
+            $table->string('report_contact_email')->nullable();
             $table->timestamps();
         });
     }
