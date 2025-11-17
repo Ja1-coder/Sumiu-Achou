@@ -68,9 +68,17 @@ class User extends Authenticatable
     }
 
 
-    public function place(): HasOnde
+    /**
+     * Returns a many-to-many relationship between the user and the places they are associated with.
+     *
+     * This relationship is defined in the user_place pivot table, and it allows
+     * users to be associated with multiple places.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function places(): BelongsToMany
     {
-        return $this->hasOne(Place::class);
+        return $this->belongsToMany(Place::class, 'user_place');
     }
 
     /**
