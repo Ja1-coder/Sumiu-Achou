@@ -12,7 +12,7 @@
 
         <div class="flex flex-col w-full gap-6">
             <a href="{{ route('user-option') }}">
-                <svg class="text-[#F4F4F2] hover:bg-[#F4F4F2] hover:text-[#2C3E50] border border-[#5B88A5] h-8 w-8 rounded-full" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-left-icon lucide-arrow-big-left"><path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"/></svg>
+                <x-heroicon-o-arrow-left class="text-[#F4F4F2] hover:bg-[#F4F4F2] hover:text-[#2C3E50] border border-[#5B88A5] h-8 w-8 rounded-full"/>
             </a>
         </div>
         
@@ -22,7 +22,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('E-mail')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

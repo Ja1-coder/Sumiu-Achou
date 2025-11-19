@@ -13,7 +13,7 @@
             Escolha seu perfil de acesso
         </h2>
         <div class="flex items-center flex-col w-full py-10 gap-6">
-            <x-link-button href="{{ route('home') }}" class="ms-3">
+            <x-link-button href="{{ route('home.page') }}" class="ms-3">
                 Visitante
             </x-link-button>
             <x-link-button href="{{ route('login') }}" class="ms-3">

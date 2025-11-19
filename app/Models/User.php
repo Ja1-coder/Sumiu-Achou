@@ -18,11 +18,11 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const TYPE_ADMIN = 0;
-    const TYPE_SUPER_ADMIN = 1;
+    const TYPE_SUPERVISOR = 1;
 
     public const TYPES = [
         self::TYPE_ADMIN => 'Administrador',
-        self::TYPE_SUPER_ADMIN => 'Super Administrador',
+        self::TYPE_SUPERVISOR => 'Supervisor',
     ];
 
     /**
@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     public function isSuperAdmin(): bool
     {
-        return $this->type === self::TYPE_SUPER_ADMIN;
+        return $this->type === self::TYPE_SUPERVISOR;
     }
 
     /**
