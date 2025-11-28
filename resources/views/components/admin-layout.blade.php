@@ -21,7 +21,7 @@
             <img class="w-32 ml-4" src="{{ asset('images/Logo_dark.png') }}" alt="Logo Sumiu Achou">
         </div>
         <div class="flex items-center justify-end w-full px-4 py-6">
-            <a href="#" 
+            <a href="{{route('user-option')}}" 
                class="text-[#243A69] font-semibold bg-[#F4F4F2] hover:bg-[#D4CDC5] px-4 py-2 rounded-md">
                 Trocar Acesso
             </a>
@@ -40,7 +40,7 @@
 
                 <x-sidebar-link href="#" title="Dashboard" />
 
-                <x-sidebar-link href="#" title="Cadastrar Item" />
+                <x-sidebar-link href="{{route('admin.cadastrar-item')}}" title="Cadastrar Item" />
                 
                 <x-sidebar-link href="#" title="Listagem de Itens" />
                 
