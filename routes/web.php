@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Visitante\VisitorHomeController;
 
 Route::get('/', function () {
@@ -11,10 +11,14 @@ Route::get('/', function () {
 
 
 Route::get('/forum', function () {
-    return view('forum');
+    return view('visitante.forum');
 })->name('forum');
 
-Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+Route::group(["prefix" => "admin", "as" => "admin."], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+});
+
+
 Route::get('/pagina-inicial', [VisitorHomeController::class, 'index'])->name('home.page');    
 
 Route::middleware('auth')->group(function () {

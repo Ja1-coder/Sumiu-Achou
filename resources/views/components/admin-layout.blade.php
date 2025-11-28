@@ -32,35 +32,21 @@
     <div class="flex w-full flex-1">
 
         <!-- Sidebar fixa -->
-        <aside class="w-64 bg-white border-r border-gray-300 p-5 hidden lg:flex flex-col">
+        <aside class="w-64 bg-[#5b88a5] border-r border-gray-300 p-5 hidden lg:flex flex-col">
 
-            <h2 class="text-[#243A69] font-bold mb-6 text-lg">Menu</h2>
+            <h2 class="text-[#243A69] font-bold mb-6 text-lg text-center">Menu</h2>
 
             <nav class="flex flex-col gap-3">
 
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Dashboard
-                </a>
+                <x-sidebar-link href="#" title="Dashboard" />
 
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Usuários
-                </a>
+                <x-sidebar-link href="#" title="Cadastrar Item" />
+                
+                <x-sidebar-link href="#" title="Listagem de Itens" />
+                
+                <x-sidebar-link href="#" title="Histórico" />
 
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Registros
-                </a>
-
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Itens Encontrados
-                </a>
-
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Itens Perdidos
-                </a>
-
-                <a href="#" class="text-[#243A69] hover:bg-[#E5E5E5] px-3 py-2 rounded-md">
-                    Configurações
-                </a>
+                <x-sidebar-link href="#" title="Configurações" />
 
             </nav>
         </aside>
