@@ -4,7 +4,7 @@
         Cadastro de Novo Item
     </h1>
 
-    <form method="POST" action="#" class="p-8 rounded-lg">
+    <form method="POST" action="#" class="p-8 rounded-lg" enctype="multipart/form-data">
         @csrf
 
         {{-- Layout Principal: Duas Colunas --}}
@@ -49,7 +49,7 @@
                 {{-- 5. URL da Imagem --}}
                 <div>
                     <label for="imagem_url" class="block text-sm font-medium text-gray-700">URL da Imagem do Item</label>
-                    <input type="url" id="imagem_url" name="imagem_url" placeholder="http://exemplo.com/imagem.jpg"
+                    <input type="file" id="imagem_url" name="imagem_url" placeholder="http://exemplo.com/imagem.jpg"
                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2.5 focus:ring-[#5b88a5] focus:border-[#5b88a5]">
                 </div>
 
@@ -58,7 +58,7 @@
             <div class="w-full lg:w-1/3 p-4 border border-gray-200 rounded-md bg-gray-50 flex flex-col items-center justify-center space-y-3 h-full">
                 <p class="text-sm font-semibold text-gray-600">Pré-visualização da Imagem:</p>
                 <div class="w-full h-48 overflow-hidden rounded-md shadow-md bg-gray-300 flex items-center justify-center">
-                    <img id="image_preview" src="" alt="Pré-visualização da Imagem" class="hidden w-full h-full object-cover">
+                    <img id="image_preview" src="" alt="Pré-visualização da Imagem" class="hidden w-full h-full object-contain">
                     <span id="placeholder_text" class="text-gray-500 text-center text-sm">A imagem aparecerá aqui após inserir a URL.</span>
                 </div>
             </div>
@@ -78,17 +78,21 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const urlInput = document.getElementById('imagem_url');
+                const fileInput = document.getElementById('imagem_url');
                 const imagePreview = document.getElementById('image_preview');
                 const placeholderText = document.getElementById('placeholder_text');
 
-                urlInput.addEventListener('input', function() {
-                    const url = urlInput.value.trim();
+                fileInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
                     
-                    if (url) {
-                        imagePreview.src = url;
-                        imagePreview.classList.remove('hidden');
-                        placeholderText.classList.add('hidden');
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            imagePreview.src = e.target.result;
+                            imagePreview.classList.remove('hidden');
+                            placeholderText.classList.add('hidden');
+                        };
+                        reader.readAsDataURL(file);
                     } else {
                         imagePreview.src = '';
                         imagePreview.classList.add('hidden');

@@ -5,6 +5,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PlaceController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Visitante\VisitorHomeController;
 
 Route::middleware('custom_guest')->group(function () {
@@ -27,6 +30,10 @@ Route::get('/forum', function () {
 Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
     Route::get('/cadastrar-item', [ItemController::class, 'index'])->name('cadastrar-item');
+    Route::get('/listagem-de-item', [ItemController::class, 'showListItem'])->name('listar-item');
+    Route::get('/listagem-de-usuarios', [UserController::class, 'index'])->name('listar-usuarios');
+    Route::get('/listagem-de-lugares', [PlaceController::class, 'index'])->name('listar-lugares');
+    Route::get('/noticias', [NewsController::class, 'index'])->name('noticias');
 
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

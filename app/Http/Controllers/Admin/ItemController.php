@@ -11,4 +11,9 @@ class ItemController extends Controller
     {
         return view('admin.cadastrar-item');
     }
+
+    public function showListItem()
+    {
+        return view('admin.listar-item');
+    }
 }
