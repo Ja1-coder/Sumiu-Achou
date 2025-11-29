@@ -9,9 +9,10 @@
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-{{-- CORREÇÃO 1: h-screen no body garante a altura total para flex-col --}}
 <body class="bg-[#F4F4F2] flex flex-col h-screen overflow-hidden"> 
 
     <header class="bg-[#243A69] flex w-full text-sm">
@@ -28,7 +29,6 @@
 
     <div class="flex w-full flex-1 overflow-hidden">
         
-
         <aside class="w-64 bg-[#5b88a5] border-r border-gray-300 p-5 hidden lg:flex flex-col h-full">
             
             <div class="flex-grow">
@@ -77,8 +77,7 @@
         </main>
 
     </div>
-    @stack('scripts')
-  <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const button = document.getElementById('user-menu-button');
             const dropdown = document.getElementById('user-menu-dropdown');
@@ -96,6 +95,50 @@
                 }
             });
         });
-    </script>  
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end', // Canto superior direito
+                showConfirmButton: false,
+                timer: 4000, // Aumentei um pouco o tempo para erros
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            // A. Capturar Mensagem de SUCESSO
+            @if (session('success'))
+                Toast.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}'
+                });
+            @endif
+
+            // B. Capturar Mensagem de ERRO (Geral)
+            @if (session('error'))
+                Toast.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}'
+                });
+            @endif
+
+
+            @if ($errors->any())
+                @php
+                    $firstError = $errors->first();
+                @endphp
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '{{ $firstError }}',
+                });
+            @endif
+        });
+    </script> 
+
+    @stack('scripts')
 </body>
 </html>

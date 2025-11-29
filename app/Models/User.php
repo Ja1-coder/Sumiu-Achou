@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Adicionado para a relação places
+use InvalidArgumentException; // Necessário para lançar exceção no mapeamento
 
 class User extends Authenticatable
 {
@@ -46,6 +48,23 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Mapeia a string de tipo de usuário para o valor inteiro do modelo.
+     * Este método centraliza a lógica de conversão no Model.
+     *
+     * @param string $typeString
+     * @return int
+     * @throws \InvalidArgumentException Se o tipo for inválido.
+     */
+    public static function mapTypeStringToInt(string $typeString): int
+    {
+        return match (strtolower($typeString)) {
+            'administrador' => self::TYPE_ADMIN,
+            'supervisor' => self::TYPE_SUPERVISOR,
+            default => throw new InvalidArgumentException("Tipo de usuário inválido: {$typeString}"),
+        };
+    }
 
     /**
      * Checks if the user is a super admin.
@@ -92,10 +111,10 @@ class User extends Authenticatable
     }
 
     /**
-    * Gets the news associated with this user.
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * Gets the news associated with this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function news(): HasMany
     {
         return $this->hasMany(News::class);

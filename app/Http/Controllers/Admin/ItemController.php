@@ -9,11 +9,11 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('admin.cadastrar-item');
+        return view('admin.item.cadastrar-item');
     }
 
     public function showListItem()
     {
-        return view('admin.listar-item');
+        return view('admin.item.listar-item');
     }
 }

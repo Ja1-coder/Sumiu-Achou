@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold text-[#243A69] mb-8 border-b pb-4 flex justify-between items-center">
         Gerenciar Usuários do Sistema
         {{-- Botão para criar novo usuário --}}
-        <a href="#" class="px-4 py-2 bg-[#243A69] text-white text-sm font-semibold rounded-md hover:bg-[#1a2c52] transition duration-150">
+        <a href="{{route('admin.cadastrar-usuario')}}" class="px-4 py-2 bg-[#243A69] text-white text-sm font-semibold rounded-md hover:bg-[#1a2c52] transition duration-150">
             + Novo Usuário
         </a>
     </h1>
@@ -36,49 +36,43 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        
-                        {{-- Exemplo de Loop (Substitua por seu loop real, e.g., @foreach ($usuarios as $usuario)) --}}
-                        @php
-                            $nomes = ['João Silva', 'Maria Santos', 'Carlos Souza', 'Ana Oliveira', 'Pedro Costa'];
-                        @endphp
-
-                        @foreach ($nomes as $index => $nome)
+                        @forelse ($users as $user)
                             <tr>
                                 {{-- Nome --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $nome }}
+                                    {{ $user->name }}
                                 </td>
                                 
                                 {{-- Email --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ strtolower(str_replace(' ', '.', $nome)) }}@empresa.com
+                                    {{ $user->email }}
                                 </td>
 
-                                {{-- Nº de Lugares Associados (Número aleatório para o exemplo) --}}
+                                {{-- Nº de Lugares Associados --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700">
-                                    {{ ($index % 3) + 1 }}
+                                    {{ $user->places->count() }} 
                                 </td>
                                 
                                 {{-- Ações --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    {{-- Lembre-se de substituir o '#' pelas rotas reais de edição/exclusão, passando o ID do usuário --}}
                                     <a href="#" class="text-[#5b88a5] hover:text-[#497187] mr-3">Editar</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
-                                    {{-- Exemplo de botão de Desativar --}}
-                                    <a href="#" class="text-yellow-600 hover:text-yellow-800 ml-3">Desativar</a>
+                                    <a href="#" onclick="confirmDelete({{ $user->id }})" class="text-red-600 hover:text-red-900">Excluir</a>
                                 </td>
                             </tr>
-                        @endforeach
-                        {{-- Fim do Exemplo de Loop --}}
-
+                        @empty
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                    Nenhum usuário encontrado (além do seu próprio).
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
 
-            <div class="mt-4">
-                {{-- Exemplo de Paginação (se necessário) --}}
-                <p class="text-sm text-gray-600">
-                    Mostrando 1 a 5 de 15 resultados.
-                </p>
+            <div class="mt-6">
+                {{ $users->links() }}
             </div>
         </div>
     </div>

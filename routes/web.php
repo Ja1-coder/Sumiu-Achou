@@ -28,11 +28,22 @@ Route::get('/forum', function () {
 })->name('forum');
 
 Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], function () {
+    //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+
+    //Item
     Route::get('/cadastrar-item', [ItemController::class, 'index'])->name('cadastrar-item');
     Route::get('/listagem-de-item', [ItemController::class, 'showListItem'])->name('listar-item');
+
+    //User
     Route::get('/listagem-de-usuarios', [UserController::class, 'index'])->name('listar-usuarios');
+    Route::get('/cadastrar-usuario', [UserController::class, 'showCreateUser'])->name('cadastrar-usuario');
+    Route::post('/cadastrar-usuario', [UserController::class, 'store'])->name('criar-usuario');
+
+    //Lugar
     Route::get('/listagem-de-lugares', [PlaceController::class, 'index'])->name('listar-lugares');
+
+    //Noticias
     Route::get('/noticias', [NewsController::class, 'index'])->name('noticias');
 
 

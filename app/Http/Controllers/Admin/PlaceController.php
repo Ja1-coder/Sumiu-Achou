@@ -9,6 +9,6 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        return view('admin.listar-lugares');
+        return view('admin.lugar.listar-lugares');
     }
 }
