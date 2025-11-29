@@ -57,4 +57,56 @@ class UserController extends Controller
         }
         
     }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.usuario.editar-usuario', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'tipo' => 'required|in:administrador,supervisor',
+            ]);
+
+            // Atualização
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->type = User::mapTypeStringToInt($validated['tipo']);
+
+            $user->save();
+
+            return redirect()
+                ->route('admin.listar-usuarios')
+                ->with('success', 'Usuário atualizado com sucesso!');
+
+        } catch (\Exception $e) {
+            logger()->error($e->getMessage());
+            return back()->withErrors('Erro ao atualizar o usuário.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            return redirect()
+                ->route('admin.listar-usuarios')
+                ->with('success', 'Usuário excluído com sucesso!');
+        } catch (\Exception $e) {
+            logger()->error($e->getMessage());
+            return back()->withErrors('Erro ao excluir o usuário.');
+        }
+    }
+
+
 }

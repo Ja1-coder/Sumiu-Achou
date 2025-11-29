@@ -39,6 +39,11 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
     Route::get('/listagem-de-usuarios', [UserController::class, 'index'])->name('listar-usuarios');
     Route::get('/cadastrar-usuario', [UserController::class, 'showCreateUser'])->name('cadastrar-usuario');
     Route::post('/cadastrar-usuario', [UserController::class, 'store'])->name('criar-usuario');
+    Route::get('/admin/usuarios/{id}/editar', [UserController::class, 'edit'])->name('editar-usuario');
+    Route::put('/admin/usuarios/{id}', [UserController::class, 'update'])->name('atualizar-usuario');
+    Route::delete('/admin/usuarios/{id}', [UserController::class, 'destroy'])->name('excluir-usuario');
+
+
 
     //Lugar
     Route::get('/listagem-de-lugares', [PlaceController::class, 'index'])->name('listar-lugares');

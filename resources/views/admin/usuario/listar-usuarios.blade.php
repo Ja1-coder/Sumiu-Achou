@@ -25,6 +25,12 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
                             </th>
+
+                            {{-- Tipo --}}
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tipo
+                            </th>
+
                             {{-- Nº de Lugares Associados --}}
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 N° de Lugares Associados
@@ -48,6 +54,11 @@
                                     {{ $user->email }}
                                 </td>
 
+                                {{-- Tipo --}}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    {{ ucfirst(\App\Models\User::mapTypeIntToString($user->type)) }}
+                                </td>
+
                                 {{-- Nº de Lugares Associados --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700">
                                     {{ $user->places->count() }} 
@@ -56,8 +67,9 @@
                                 {{-- Ações --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     {{-- Lembre-se de substituir o '#' pelas rotas reais de edição/exclusão, passando o ID do usuário --}}
-                                    <a href="#" class="text-[#5b88a5] hover:text-[#497187] mr-3">Editar</a>
-                                    <a href="#" onclick="confirmDelete({{ $user->id }})" class="text-red-600 hover:text-red-900">Excluir</a>
+                                    <a href="{{ route('admin.editar-usuario', $user->id) }}" class="text-[#5b88a5] hover:text-[#497187] mr-3">Editar</a>
+                                    <a href="#" onclick="confirmDelete('{{ route('admin.excluir-usuario', $user->id) }}')" class="text-red-600 hover:text-red-900">Excluir</a>
+
                                 </td>
                             </tr>
                         @empty
@@ -76,5 +88,40 @@
             </div>
         </div>
     </div>
+@push('scripts')
+<script>
+    function confirmDelete(url) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Esta ação não poderá ser desfeita!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir',
+            cancelButtonText: 'Cancelar',
+            scrollbarPadding: false,
+            heightAuto: false,
+            reverseButtons: true
+            
+        }).then((result) => {
+            if (result.isConfirmed) {
 
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
+
+                form.innerHTML = `
+                    @csrf
+                    @method('DELETE')
+                `;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+
+@endpush
 </x-admin-layout>

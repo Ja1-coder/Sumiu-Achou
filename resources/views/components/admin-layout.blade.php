@@ -103,6 +103,9 @@
                 showConfirmButton: false,
                 timer: 4000, // Aumentei um pouco o tempo para erros
                 timerProgressBar: true,
+                scrollbarPadding: false,
+                heightAuto: false,
+                reverseButtons: true,
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;

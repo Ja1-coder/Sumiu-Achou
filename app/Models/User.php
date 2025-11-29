@@ -67,6 +67,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Converte o valor inteiro do tipo em sua string correspondente.
+     *
+     * @param int $typeInt
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public static function mapTypeIntToString(int $typeInt): string
+    {
+        return match ($typeInt) {
+            self::TYPE_ADMIN     => 'administrador',
+            self::TYPE_SUPERVISOR => 'supervisor',
+            default => throw new InvalidArgumentException("Tipo de usuário inválido: {$typeInt}"),
+        };
+    }
+
+    /**
      * Checks if the user is a super admin.
      *
      * @return bool
