@@ -32,11 +32,16 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
     //Item
-    Route::get('/cadastrar-item', [ItemController::class, 'index'])->name('cadastrar-item');
-    Route::get('/listagem-de-item', [ItemController::class, 'showListItem'])->name('listar-item');
+    Route::get('/itens', [ItemController::class, 'index'])->name('listar-item');
+    Route::get('/cadastrar-item', [ItemController::class, 'showListItem'])->name('cadastrar-item');
+    Route::post('/cadastrar', [ItemController::class, 'store'])->name('salvar-item');
+    Route::delete('/excluir/{id}', [ItemController::class, 'destroy'])->name('excluir-item');
+    Route::put('/item/{id}/devolver', [ItemController::class, 'devolver'])->name('devolver-item');
+    Route::put('/item/{id}/reportar', [ItemController::class, 'reportar'])->name('reportar-item');
+
 
     //User
-    Route::get('/listagem-de-usuarios', [UserController::class, 'index'])->name('listar-usuarios');
+    Route::get('/usuarios', [UserController::class, 'index'])->name('listar-usuarios');
     Route::get('/cadastrar-usuario', [UserController::class, 'showCreateUser'])->name('cadastrar-usuario');
     Route::post('/cadastrar-usuario', [UserController::class, 'store'])->name('criar-usuario');
     Route::get('/admin/usuarios/{id}/editar', [UserController::class, 'edit'])->name('editar-usuario');
@@ -46,7 +51,7 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
 
 
     //Lugar
-    Route::get('/listagem-de-lugares', [PlaceController::class, 'index'])->name('listar-lugares');
+    Route::get('/lugares', [PlaceController::class, 'index'])->name('listar-lugares');
     Route::get('/cadastrar-lugar', [PlaceController::class, 'showCreatePlace'])->name('cadastrar-lugar');
     Route::post('/cadastrar-lugar', [PlaceController::class, 'store'])->name('criar-lugar');
     Route::get('/admin/lugares/{id}/editar', [PlaceController::class, 'edit'])->name('editar-lugar');
