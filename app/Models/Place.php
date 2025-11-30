@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
 class Place extends Model
 {
-    protected $fillable = ['full_address', 'phone', 'email', 'user_id', 'operating_hours'];
+    protected $fillable = ['full_address', 'phone', 'email', 'operating_hours'];
 
-
-    
   
     /**
      * Get the users associated with this place.
@@ -21,7 +19,7 @@ class Place extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_place');
+        return $this->belongsToMany(User::class, 'user_place', 'place_id', 'user_id');
     }
 
     /**

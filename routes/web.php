@@ -47,6 +47,11 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
 
     //Lugar
     Route::get('/listagem-de-lugares', [PlaceController::class, 'index'])->name('listar-lugares');
+    Route::get('/cadastrar-lugar', [PlaceController::class, 'showCreatePlace'])->name('cadastrar-lugar');
+    Route::post('/cadastrar-lugar', [PlaceController::class, 'store'])->name('criar-lugar');
+    Route::get('/admin/lugares/{id}/editar', [PlaceController::class, 'edit'])->name('editar-lugar');
+    Route::put('/admin/lugares/{id}', [PlaceController::class, 'update'])->name('atualizar-lugar');
+    Route::delete('/admin/lugares/{id}', [PlaceController::class, 'destroy'])->name('excluir-lugar');
 
     //Noticias
     Route::get('/noticias', [NewsController::class, 'index'])->name('noticias');

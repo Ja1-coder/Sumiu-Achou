@@ -32,9 +32,24 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed', 
+            'password' => 'required|string|min:8|confirmed',
             'tipo' => 'required|string|in:administrador,supervisor',
+        ], [
+            'name.required' => 'O nome é obrigatório.',
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'O e-mail informado não é válido.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+
+            'password.required' => 'A senha é obrigatória.',
+            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
+            'password.confirmed' => 'As senhas não coincidem.',
+
+            'tipo.required' => 'O tipo de usuário é obrigatório.',
+            'tipo.in' => 'O tipo de usuário informado é inválido.',
         ]);
+
         try{
         
             try {
@@ -74,6 +89,14 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email,' . $id,
                 'tipo' => 'required|in:administrador,supervisor',
+            ], [
+                'name.required' => 'O nome é obrigatório.',
+                'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+                'email.required' => 'O e-mail é obrigatório.',
+                'email.email' => 'O e-mail informado não é válido.',
+                'email.unique' => 'Este e-mail já está cadastrado.',
+                'tipo.required' => 'O tipo de usuário é obrigatório.',
+                'tipo.in' => 'O tipo de usuário informado é inválido.',
             ]);
 
             // Atualização
