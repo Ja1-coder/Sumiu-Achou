@@ -22,6 +22,12 @@ Route::get('/', function () {
     return view('auth/user-option');
 })->name('user-option');
 
+// Rotas de visitantes
+Route::get('/pagina-inicial', [VisitorHomeController::class, 'index'])->name('home.page');    
+Route::get('/item/{id}', [VisitorHomeController::class, 'individualItem'])->name('item.show');
+Route::get('/itens', [VisitorHomeController::class, 'allItems'])->name('item.all');
+Route::get('/noticias', [VisitorHomeController::class, 'noticias'])->name('noticias');
+Route::get('/lugares', [VisitorHomeController::class, 'lugares'])->name('lugares');
 
 Route::get('/forum', function () {
     return view('visitante.forum');
@@ -48,8 +54,6 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
     Route::put('/admin/usuarios/{id}', [UserController::class, 'update'])->name('atualizar-usuario');
     Route::delete('/admin/usuarios/{id}', [UserController::class, 'destroy'])->name('excluir-usuario');
 
-
-
     //Lugar
     Route::get('/lugares', [PlaceController::class, 'index'])->name('listar-lugares');
     Route::get('/cadastrar-lugar', [PlaceController::class, 'showCreatePlace'])->name('cadastrar-lugar');
@@ -60,11 +64,12 @@ Route::group(["prefix" => "admin", "as" => "admin.", "middleware" => "auth"], fu
 
     //Noticias
     Route::get('/noticias', [NewsController::class, 'index'])->name('noticias');
+    Route::post('/criar-noticia', [NewsController::class, 'store'])->name('criar-noticia');
+    Route::delete('/excluir-noticia/{id}', [NewsController::class, 'destroy'])->name('excluir-noticia');
 
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
 
-Route::get('/pagina-inicial', [VisitorHomeController::class, 'index'])->name('home.page');    
 

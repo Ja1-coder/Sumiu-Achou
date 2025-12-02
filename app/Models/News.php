@@ -21,6 +21,7 @@ class News extends Model
 
     protected $fillable = [
         'user_id',
+        'title',
         'description',
         'date',
         'status',
@@ -89,7 +90,7 @@ class News extends Model
     protected function casts(): array
     {
         return [
-            'date' => 'datetime',
+            'created_at' => 'datetime',
         ];
     }
 }

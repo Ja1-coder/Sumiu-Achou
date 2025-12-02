@@ -35,12 +35,14 @@
                 <h2 class="text-[#243A69] font-bold mb-6 text-lg text-center">Menu</h2>
 
                 <nav class="flex flex-col gap-3">
-                    <x-sidebar-link href="{{route('admin.listar-usuarios')}}" title="Usuários" />
-                    <x-sidebar-link href="{{route('admin.listar-lugares')}}" title="Lugares" />
-                    <x-sidebar-link href="{{route('admin.home')}}" title="Dashboard" />
+                <x-sidebar-link href="{{route('admin.home')}}" title="Dashboard" />
+                @if (Auth::user()->isSupervisor())
                     <x-sidebar-link href="{{route('admin.listar-item')}}" title="Listagem de Itens" />
                     <x-sidebar-link href="{{route('admin.noticias')}}" title="Notícias" />
-                    <x-sidebar-link href="#" title="Configurações" />
+                @elseif (Auth::user()->isAdmin())
+                    <x-sidebar-link href="{{route('admin.listar-usuarios')}}" title="Usuários" />
+                    <x-sidebar-link href="{{route('admin.listar-lugares')}}" title="Lugares" />
+                @endif
                 </nav>
             </div>
             <div class="mt-auto relative pt-4 border-t border-[#497187]">

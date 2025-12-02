@@ -87,7 +87,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isSuperAdmin(): bool
+    public function isSupervisor(): bool
     {
         return $this->type === self::TYPE_SUPERVISOR;
     }

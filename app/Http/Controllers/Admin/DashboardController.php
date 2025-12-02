@@ -12,22 +12,23 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Todos os lugares que ele tem permissão
-        $allowedPlaceIds = $user->places()->pluck('places.id');
+        // Se for admin, ele vê tudo
+        if ($user->isAdmin()) {
+            $items = Item::all();
+        } 
+        // Se for supervisor, filtra pelos locais permitidos
+        else {
+            $allowedPlaceIds = $user->places()->pluck('places.id');
+            $items = Item::whereIn('place_id', $allowedPlaceIds)->get();
+        }
 
-        // Filtrar itens somente desses lugares
-        $items = Item::whereIn('place_id', $allowedPlaceIds)->get();
-
-        // Montar métricas
+        // Métricas
         $totalItems = $items->count();
         $storedItems = $items->where('status', Item::STATUS_STORED)->count();
         $returnedItems = $items->where('status', Item::STATUS_RETURNED)->count();
         $reportedItems = $items->where('status', Item::STATUS_REPORTED)->count();
 
-        // Itens criados nos últimos 30 dias
         $newThisMonth = $items->where('created_at', '>=', now()->subDays(30))->count();
-
-        // Contagem por tipo
         $itemsByType = $items->groupBy('type_id')->map->count();
 
         return view('admin.dashboard', [
@@ -39,4 +40,5 @@ class DashboardController extends Controller
             'itemsByType'    => $itemsByType,
         ]);
     }
+
 }

@@ -144,4 +144,7 @@ class Item extends Model
             get: fn () => self::STATUS[$this->status] ?? 'Desconhecido'
         );
     }
+
+
+
 }
