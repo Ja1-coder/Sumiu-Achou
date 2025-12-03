@@ -11,7 +11,7 @@
             {{-- Endereço --}}
             <div class="mb-4">
                 <label for="full_address" class="block text-sm font-medium text-gray-700">
-                    Endereço Completo
+                    Nome do Local
                 </label>
                 <input type="text" id="full_address" name="full_address"
                        value="{{ old('full_address') }}" required
